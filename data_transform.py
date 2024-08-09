@@ -9,9 +9,15 @@ class DataProcessor:
     def _extract_keys(self, keys):
         extracted_keys = []
         
+        for key, variable in self.data.items():
+            entry = {'key': key}
+            
+            for k in keys:
+                if k in variable:
+                    entry[k] = variable[k]
+            extracted_keys.append(entry)
         
-        
-        return [{k : v for k, v in variable.items() if k in keys} for variable in self.data.values()]
+        return extracted_keys
     
     # Create a dataframe out of selected keys
     def create_df(self, keys):
